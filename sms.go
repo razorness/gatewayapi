@@ -1,8 +1,8 @@
 package gatewayapi
 
 const (
-	DefaultSmsClass smsClass = "default"
-	PremiumSmsClass smsClass = "premium"
+	StandardSmsClass smsClass = "standard"
+	PremiumSmsClass  smsClass = "premium"
 	// The secret class can be used to blur the message content you send, used for very sensitive data.
 	// It is priced as premium and uses the same routes, which ensures end to end encryption of your
 	// messages. Access to the secret class will be very strictly controlled.
@@ -41,7 +41,7 @@ type SMS struct {
 	ValidityPeriod uint               `json:"validity_period,omitempty"` // Specified in seconds. If message is not delivered within this timespan, it will expire and you will get a notification. The minimum value is 60. Every value under 60 will be set to 60.
 	Encoding       encoding           `json:"encoding,omitempty"`        // Encoding to use when sending the message. Defaults to ‘UTF8’, which means we will use GSM 03.38. Use UCS2 to send a unicode message.
 	DestAddr       destinationAddress `json:"destaddr,omitempty"`        // One of ‘DISPLAY’, ‘MOBILE’, ‘SIMCARD’, ‘EXTUNIT’. Use display to do “flash sms”, a message displayed on screen immediately but not saved in the normal message inbox on the mobile device.
-	Payload        string             `json:"payload,omitempty"`         //  If you are sending a binary SMS, ie. a SMS you have encoded yourself or with speciel content for feature phones (non-smartphones). You may specify a payload, encoded as Base64. If specified, message must not be set and tags are unavailable.
+	Payload        string             `json:"payload,omitempty"`         // If you are sending a binary SMS, ie. a SMS you have encoded yourself or with speciel content for feature phones (non-smartphones). You may specify a payload, encoded as Base64. If specified, message must not be set and tags are unavailable.
 	Udh            string             `json:"udh,omitempty"`             // UDH to enable additional functionality for binary SMS, encoded as Base64.
 	CallbackUrl    string             `json:"callbackUrl,omitempty"`     // If specified send status notifications to this URL, else use the default webhook.
 	Label          string             `json:"label,omitempty"`           // A label added to each sent message, can be used to uniquely identify a customer or company that you sent the message on behalf of, to help with invoicing your customers. If specied it must be the same for all messages in the request.
@@ -51,5 +51,5 @@ type SMS struct {
 
 type Recipient struct {
 	Msisdn    string   `json:"msisdn"`              // MSISDN aka the full mobile phone number of the recipient. Duplicates are not allowed in the same message. required
-	TagValues []string `json:"tagvalues,omitempty"` //  A list of string values corresponding to the tags in message. The order and amount of tag values must exactly match the tags.
+	TagValues []string `json:"tagvalues,omitempty"` // A list of string values corresponding to the tags in message. The order and amount of tag values must exactly match the tags.
 }
